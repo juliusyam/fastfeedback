@@ -4,11 +4,15 @@ import {
   ModalBody, ModalCloseButton, FormControl, FormLabel, Input, useDisclosure, Button, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { createSite } from '../lib/database';
+import { useAuth } from '@/lib/auth';
+import dayjs from 'dayjs';
 
 export default function AddSiteModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef();
   const finalRef = useRef();
+  const auth = useAuth();
+  const user = auth?.user;
   
   return (
     <>
@@ -27,7 +31,7 @@ export default function AddSiteModal() {
           <ModalHeader fontWeight="medium">Add Site</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <CreateSiteForm onClose={onClose} />
+            <CreateSiteForm onClose={onClose} user={user} />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -35,12 +39,17 @@ export default function AddSiteModal() {
   )
 }
 
-function CreateSiteForm({onClose}) {
+function CreateSiteForm({onClose, user}) {
   const { register, handleSubmit, errors } = useForm();
   const toast = useToast();
 
-  const onSubmit = (values) => {
-    createSite(values);
+  const onSubmit = ({site, url}) => {
+    createSite({
+      authorId: user.uid,
+      createdAt: dayjs().format(),
+      site,
+      url
+    });
     toast({
       title: 'Success!',
       description: "We've added your site.",
@@ -48,7 +57,6 @@ function CreateSiteForm({onClose}) {
       duration: 5000,
       isClosable: true
     });
-    console.log(values);
     onClose();
   };
 
