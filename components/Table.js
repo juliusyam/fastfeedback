@@ -10,6 +10,7 @@ export function Th (props) {
     color="gray.500"
     fontWeight="medium"
     px={4}
+    p="10px"
     {...props}
   />
 }
@@ -18,8 +19,12 @@ export function Td (props) {
 
   return <Box 
     as="td"
-    color="grey.900"
-    borderBottom="1px solid gray.100"
+    color="gray.900"
+    borderBottom="1px solid"
+    borderBottomColor="gray.100"
+    fontSize="14px"
+    p="10px"
+    overflow="hidden" 
     {...props}
   />
 }
@@ -31,7 +36,8 @@ export function Tr (props) {
     backgroundColor="gray.500"
     borderTopLeftRadius={8}
     borderTopRightRadius={8}
-    borderBottom="1px solid gray.300"
+    borderBottom="1px solid"
+    borderBottomColor="gray.300"
     height="40px"
     {...props}
   />

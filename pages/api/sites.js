@@ -12,6 +12,6 @@ export default async function (req, res) {
     })
   })
 
-  res.status(200).json(sites);
+  res.status(200).json({ sites });
 }
 

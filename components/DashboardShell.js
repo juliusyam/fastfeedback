@@ -1,6 +1,7 @@
 import React from 'react'
-import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon } from '@chakra-ui/react'
+import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon, Button, useDisclosure } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth';
+import AddSiteModal from '../components/AddSiteModal';
 
 function DashboardShell({children}) {
   const auth = useAuth();
@@ -39,8 +40,11 @@ function DashboardShell({children}) {
             <Text>Feedback</Text>
             <Text>Sites</Text>
           </Stack>
-          <Stack onClick={() => auth.signout()} spacing={2} isInline alignItems="center">
+          <Stack spacing={2} isInline alignItems="center">
             {auth?.user && <Text>{user?.email}</Text>}
+            {auth?.user ? 
+              <Text onClick={() => auth.signout()}>Log Out</Text> : 
+              <Text onClick={() => auth.signinWithGithub()}>Log In</Text>}
             <Avatar size="sm" src={user?.photoURL} />
           </Stack>
         </Stack>
@@ -52,14 +56,21 @@ function DashboardShell({children}) {
           p="50px 30px"
         >
           <Box maxWidth="900px" m="0 auto" width="100%" h="90vh">
-            <Box>
-              <Text>Sites /</Text>
-            </Box>
-            <Box>
-              <Text fontSize="35px" fontWeight="bold">
-                Sites
-              </Text>
-            </Box>
+            <Flex justify="space-between" alignItems="center">
+              <Box>
+                <Box>
+                  <Text>Sites /</Text>
+                </Box>
+                <Box>
+                  <Text fontSize="35px" fontWeight="bold">
+                    Sites
+                  </Text>
+                </Box>
+              </Box>
+              <Box>
+                <AddSiteModal>+ Add Site</AddSiteModal>
+              </Box>
+            </Flex>
             <Box>
               {children}
             </Box>

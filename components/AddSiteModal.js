@@ -6,20 +6,29 @@ import { useForm } from "react-hook-form";
 import { createSite } from '../lib/database';
 import { useAuth } from '@/lib/auth';
 import dayjs from 'dayjs';
+import useSWR, { mutate } from 'swr';
+import fetcher from '../utils/fetcher';
 
-export default function AddSiteModal() {
+export default function AddSiteModal({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef();
   const finalRef = useRef();
   const auth = useAuth();
   const user = auth?.user;
+  const { data } = useSWR('/api/sites', fetcher);
   
   return (
     <>
+      {data ? <Button 
+        backgroundColor="gray.900" color="white" fontWeight="medium" 
+        _hover={{ bg: 'gray.700' }}
+        _active={{ bg: 'gray.800', transform: 'scale(0.95)'}}
+        onClick={onOpen} variant="solid" size="md">
+          + Add Site
+      </Button> : 
       <Button onClick={onOpen} variant="solid" size="md">
-        Add Your First Site Yoohoo!
-      </Button>
-
+        First Sitey Yoohoo
+      </Button>}
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
@@ -42,14 +51,17 @@ export default function AddSiteModal() {
 function CreateSiteForm({onClose, user}) {
   const { register, handleSubmit, errors } = useForm();
   const toast = useToast();
+  const { data } = useSWR('/api/sites', fetcher);
 
-  const onSubmit = ({site, url}) => {
-    createSite({
+  const onSubmit = ({name, url}) => {
+    const newSite = {
       authorId: user.uid,
       createdAt: dayjs().format(),
-      site,
+      name,
       url
-    });
+    }
+    createSite(newSite);
+
     toast({
       title: 'Success!',
       description: "We've added your site.",
@@ -57,6 +69,9 @@ function CreateSiteForm({onClose, user}) {
       duration: 5000,
       isClosable: true
     });
+    mutate('/api/sites', async (data) => { 
+      return {sites: [...data.sites, newSite] };
+    }, false);
     onClose();
   };
 
@@ -64,7 +79,7 @@ function CreateSiteForm({onClose, user}) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <FormLabel>Name</FormLabel>
-        <Input ref={register({ required: true })} placeholder="My site" name="site"  />
+        <Input ref={register({ required: true })} placeholder="My site" name="name"  />
       </FormControl>
 
       <FormControl mt={4}>
