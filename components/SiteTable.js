@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Link, Text } from "@chakra-ui/react";
 import { Table, Tr, Th, Td } from './Table';
 import dayjs from 'dayjs';
+import NextLink from 'next/link';
 
 export default function SiteTable ({sites}) {
   return <Table w="100%">
@@ -19,7 +20,9 @@ export default function SiteTable ({sites}) {
         <Box as="tr" key={index}>
           <Td>{site.name}</Td>
           <Td><Text maxW="200px" isTruncated>{site.url}</Text></Td>
-          <Td><Link>View Feedback</Link></Td>
+          <Td><NextLink href="/p/[siteId]" as={`/p/${site.id}`} passHref>
+            <Link>View Feedback</Link>
+          </NextLink></Td>
           <Td>{dayjs(site.createdAt).format('ddd, DD MMM YYYY on HH:mm')}</Td>
         </Box>
       ))}
