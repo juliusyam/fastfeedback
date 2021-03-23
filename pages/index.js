@@ -8,7 +8,14 @@ export default function Home() {
 
   return (
     <div>
-      <Head><title>Fast Feedack</title></Head>
+      <Head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
+            window.location.href = "/dashboard"
+          }` }} 
+        />
+        <title>Fast Feedack</title>
+      </Head>
 
       <Flex as="main" direction="column" justify="center" align="center" max-width="600px">
         <Heading fontWeight="medium">
@@ -39,7 +46,7 @@ export default function Home() {
         </Text> : null}
 
         {auth?.user ? 
-          <EmptyState /> : 
+          <Button onClick={() => window.location.href = "/dashboard"}>View Dashboard</Button> : 
           <Button background="#69aaac" padding="5px 10px" mt={4} onClick={() => {auth.signinWithGithub();}}>Sign In</Button>
         }
       </Flex>
