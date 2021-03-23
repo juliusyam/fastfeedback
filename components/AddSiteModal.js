@@ -51,7 +51,7 @@ export default function AddSiteModal({ children }) {
 function CreateSiteForm({onClose, user}) {
   const { register, handleSubmit, errors } = useForm();
   const toast = useToast();
-  const { data } = useSWR('/api/sites', fetcher);
+
 
   const onSubmit = ({name, url}) => {
     const newSite = {
@@ -69,7 +69,7 @@ function CreateSiteForm({onClose, user}) {
       duration: 5000,
       isClosable: true
     });
-    mutate('/api/sites', async (data) => { 
+    mutate(['/api/sites', user.token], async (data) => { 
       return {sites: [...data.sites, newSite] };
     }, false);
     onClose();
