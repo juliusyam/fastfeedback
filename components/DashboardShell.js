@@ -1,9 +1,8 @@
 import React from 'react'
 import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon, Button, useDisclosure } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth';
-import AddSiteModal from '../components/AddSiteModal';
 
-function DashboardShell({children}) {
+function DashboardShell({ children }) {
   const auth = useAuth();
   const user = auth?.user;
 
@@ -48,34 +47,7 @@ function DashboardShell({children}) {
             <Avatar size="sm" src={user?.photoURL} />
           </Stack>
         </Stack>
-        <Flex
-          backgroundColor="#e8e8e8"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="stretch"
-          p="50px 30px"
-        >
-          <Box maxWidth="900px" m="0 auto" width="100%" h="90vh">
-            <Flex justify="space-between" alignItems="center">
-              <Box>
-                <Box>
-                  <Text>Sites /</Text>
-                </Box>
-                <Box>
-                  <Text fontSize="35px" fontWeight="bold">
-                    Sites
-                  </Text>
-                </Box>
-              </Box>
-              <Box>
-                <AddSiteModal>+ Add Site</AddSiteModal>
-              </Box>
-            </Flex>
-            <Box>
-              {children}
-            </Box>
-          </Box>
-        </Flex>
+        <Flex margin="0 auto" direction="column">{children}</Flex>
       </Box>
     </ChakraProvider>
   </>

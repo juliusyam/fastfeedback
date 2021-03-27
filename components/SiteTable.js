@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Link, Text } from "@chakra-ui/react";
 import { Table, Tr, Th, Td } from './Table';
-import dayjs from 'dayjs';
+import jessicaDay from 'dayjs';
 import NextLink from 'next/link';
 
-export default function SiteTable ({sites}) {
+export default function SiteTable ({ sites }) {
   return <Table w="100%">
     <thead>
       <Tr backgroundColor="#69aaac">
@@ -21,9 +21,9 @@ export default function SiteTable ({sites}) {
           <Td>{site.name}</Td>
           <Td><Text maxW="200px" isTruncated>{site.url}</Text></Td>
           <Td><NextLink href="/p/[siteId]" as={`/p/${site.id}`} passHref>
-            <Link>View Feedback</Link>
+            <Link color="#69aaac" fontWeight="bold">View Feedback</Link>
           </NextLink></Td>
-          <Td>{dayjs(site.createdAt).format('ddd, DD MMM YYYY on HH:mm')}</Td>
+          <Td>{jessicaDay(site.createdAt).format('ddd, DD MMM YYYY on HH:mm')}</Td>
         </Box>
       ))}
     </tbody>

@@ -14,7 +14,8 @@ export async function getStaticProps(context) {
   return {
     props: {
       initialFeedback: feedback
-    }
+    },
+    revalidate: 1
   }
 }
 
@@ -45,7 +46,7 @@ export default function SiteFeedback({ initialFeedback }) {
   const onSubmit = () => {
     const newFeedback = {
       author: user.name,
-      authoId: user.uid,
+      authorId: user.uid,
       siteId: router.query.siteId,
       text: inputContent.current.value,
       createdAt: dayjs().format(),
