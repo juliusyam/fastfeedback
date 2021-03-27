@@ -40,7 +40,7 @@ function DashboardShell({ children }) {
             <Text>Sites</Text>
           </Stack>
           <Stack spacing={2} isInline alignItems="center">
-            {auth?.user && <Text>{user?.email}</Text>}
+            {auth?.user?.name ? <Text>{user?.name}</Text> : <Text>{user?.email}</Text>}
             {auth?.user ? 
               <Text onClick={() => auth.signout()}>Log Out</Text> : 
               <Text onClick={() => auth.signinWithGithub()}>Log In</Text>}
