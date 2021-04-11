@@ -52,7 +52,6 @@ function CreateSiteForm({onClose, user}) {
   const { register, handleSubmit, errors } = useForm();
   const toast = useToast();
 
-
   const onSubmit = ({name, url}) => {
     const newSite = {
       authorId: user.uid,
@@ -60,7 +59,7 @@ function CreateSiteForm({onClose, user}) {
       name,
       url
     }
-    createSite(newSite);
+    const { id } = createSite(newSite);
 
     toast({
       title: 'Success!',
@@ -70,8 +69,9 @@ function CreateSiteForm({onClose, user}) {
       isClosable: true
     });
     mutate(['/api/sites', user.token], async (data) => { 
-      return {sites: [...data.sites, newSite] };
-    }, false);
+      return {sites: [...data.sites, {id, ...newSite}] };
+    }, 
+    false);
     onClose();
   };
 
