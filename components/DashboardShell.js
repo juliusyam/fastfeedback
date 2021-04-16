@@ -42,8 +42,8 @@ function DashboardShell({ children }) {
           <Stack spacing={2} isInline alignItems="center">
             {auth?.user?.name ? <Text>{user?.name}</Text> : <Text>{user?.email}</Text>}
             {auth?.user ? 
-              <Text onClick={() => auth.signout()}>Log Out</Text> : 
-              <Text onClick={() => auth.signinWithGithub()}>Log In</Text>}
+              <Text _hover={{ color: "gray.400", cursor: "pointer" }} onClick={() => auth.signout()}>Log Out</Text> : 
+              <Text _hover={{ color: "gray.400", cursor: "pointer" }} onClick={() => auth.signinWithGithub()}>Log In</Text>}
             <Avatar size="sm" src={user?.photoURL} />
           </Stack>
         </Stack>

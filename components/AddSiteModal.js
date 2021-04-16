@@ -69,7 +69,7 @@ function CreateSiteForm({onClose, user}) {
       isClosable: true
     });
     mutate(['/api/sites', user.token], async (data) => { 
-      return {sites: [...data.sites, {id, ...newSite}] };
+      return { sites: [{ id, ...newSite }, ...data.sites] };
     }, 
     false);
     onClose();

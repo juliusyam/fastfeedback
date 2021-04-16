@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false 
+    fallback: true
   };
 }
 
@@ -54,6 +54,7 @@ export default function SiteFeedback({ initialFeedback }) {
       status: 'pending'
     }
 
+    inputContent.current.value = '';
     setAllFeedback([newFeedback, ...allFeedback]);
     createFeedback(newFeedback);
 
@@ -76,13 +77,14 @@ export default function SiteFeedback({ initialFeedback }) {
         <Input ref={inputContent} type="comment" name="comment" />
         <Button type="submit" background="#69aaac" color="#fdfdfd" my={3}
           _hover={{ bg: "gray.900" }}
+          isDisabled={router.isFallback}
         >
           Add Comment
         </Button>
       </FormControl>
     </Box>
     
-    {allFeedback.map((feedback) => (
+    {allFeedback && allFeedback.map((feedback) => (
       <EachFeedback key={feedback.id} feedback={feedback} />
     ))}
   </Box>
