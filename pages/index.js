@@ -41,7 +41,7 @@ export default function Home() {
               _active={{ bg: 'gray.800', transform: 'scale(0.95)' }}
               onClick={() => {auth.signinWithGithub();}}
             >
-              Sign In with GitHub
+              Sign In with Github
             </Button>
             <Button 
               leftIcon={<GoogleLogo />}
