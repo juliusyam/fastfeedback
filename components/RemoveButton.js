@@ -40,7 +40,7 @@ export default function RemoveButton({id}) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Customer
+              Delete Feedback
             </AlertDialogHeader>
 
             <AlertDialogBody>
