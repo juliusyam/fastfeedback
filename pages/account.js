@@ -7,6 +7,7 @@ import { Box, Button, Spinner, Text, Flex, Avatar, Stack, Tag, Grid } from '@cha
 export default function Account() {
   const auth = useAuth();
   const user = auth?.user;
+  const isPaidAccount = user?.stripeRole;
 
   return (
     <DashboardShell>
@@ -21,13 +22,13 @@ export default function Account() {
         </Stack>
       </Box>
 
-      <SettingsTable user={user} />
+      <SettingsTable user={user} isPaidAccount={isPaidAccount} />
     </DashboardShell>
   )
 }
 
-function SettingsTable ({ user }) {
-  const [isBillingLoading, setIsBillingLoading] = useState(false);
+function SettingsTable ({ user, isPaidAccount }) {
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <Box>
@@ -35,11 +36,11 @@ function SettingsTable ({ user }) {
         <Stack maxW="50em" width="100%" bg="gray.300" borderRadius={5}>
           <Stack padding={5} isInline alignItems="center" justify="space-between">
             <Text textTransform="uppercase" fontWeight="700">Settings</Text>
-            {user?.stripeRole?.includes('starter') && 
-              <Tag bg="#97e8b2" color="#00521b" fontWeight={600} textTransform="uppercase">{user?.stripeRole}</Tag>}
-              {user?.stripeRole?.includes('premium') && 
-              <Tag bg="#d19600" color="#fceabb" fontWeight={600} textTransform="uppercase">{user?.stripeRole}</Tag>}
-            {user?.stripeRole ? 
+            {isPaidAccount?.includes('starter') && 
+              <Tag bg="#97e8b2" color="#00521b" fontWeight={600} textTransform="uppercase">{isPaidAccount}</Tag>}
+              {isPaidAccount?.includes('premium') && 
+              <Tag bg="#d19600" color="#fceabb" fontWeight={600} textTransform="uppercase">{isPaidAccount}</Tag>}
+            {isPaidAccount ? 
               null : <Tag bg="#7da6ff" color="#001e5e" fontWeight={600} textTransform="uppercase">Free</Tag>}
           </Stack>
 
@@ -63,23 +64,23 @@ function SettingsTable ({ user }) {
             </Box>
             <Flex justify="flex-end" flexWrap="wrap">
               <Button m={1}>Log Out</Button>
-              {user?.stripeRole ? 
+              {isPaidAccount ? 
                 <Button 
-                  backgroundColor={isBillingLoading ? "white" : "gray.900"}
-                  color={isBillingLoading ? "gray.900" : "white"}
-                  border={isBillingLoading && "2px solid #69aaac"}
+                  backgroundColor={isLoading ? "white" : "gray.900"}
+                  color={isLoading ? "gray.900" : "white"}
+                  border={isLoading && "2px solid #69aaac"}
                   fontWeight="500"
                   padding="5px 10px"
                   m={1} 
-                  _hover={isBillingLoading ? { bg: 'white', color: 'gray.900' }:{ bg: '#69aaac', color: 'gray.900' }}
+                  _hover={isLoading ? { bg: 'white', color: 'gray.900' }:{ bg: '#69aaac', color: 'gray.900' }}
                   _active={{ transform: 'scale(0.95)' }}
                   boxShadow="none !important"
                   onClick={() => {
-                    setIsBillingLoading(true);
+                    setIsLoading(true);
                     goToBillingPortal();
                   }}
                 >
-                  {isBillingLoading ? 
+                  {isLoading ? 
                     <Flex><Spinner
                       thickness="2px"
                       speed="0.65s"
@@ -92,21 +93,21 @@ function SettingsTable ({ user }) {
                   }
                 </Button> :
                 <Button 
-                  backgroundColor={isBillingLoading ? "white" : "gray.900"}
-                  color={isBillingLoading ? "gray.900" : "white"}
-                  border={isBillingLoading && "2px solid #69aaac"}
+                  backgroundColor={isLoading ? "white" : "gray.900"}
+                  color={isLoading ? "gray.900" : "white"}
+                  border={isLoading && "2px solid #69aaac"}
                   fontWeight="500"
                   padding="5px 10px"
                   m={1} 
-                  _hover={isBillingLoading ? { bg: 'white', color: 'gray.900' }:{ bg: '#69aaac', color: 'gray.900' }}
+                  _hover={isLoading ? { bg: 'white', color: 'gray.900' }:{ bg: '#69aaac', color: 'gray.900' }}
                   _active={{ transform: 'scale(0.95)' }}
                   boxShadow="none !important"
                   onClick={() => {
-                    setIsBillingLoading(true);
+                    setIsLoading(true);
                     createCheckoutSession(user.uid);
                   }}
                 >
-                  {isBillingLoading ? 
+                  {isLoading ? 
                     <Flex><Spinner
                       thickness="2px"
                       speed="0.65s"
