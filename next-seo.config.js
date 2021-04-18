@@ -4,10 +4,11 @@ const description = 'Create a page to receive feedback on your site instantly. S
 const SEO = {
   title,
   description,
+  canonical: 'https://photoshopgame.co.uk',
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: 'https://www.juliusyam.com',
+    url: 'https://photoshopgame.co.uk',
     title,
     description
   },
