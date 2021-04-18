@@ -4,11 +4,11 @@ const description = 'Create a page to receive feedback on your site instantly. S
 const SEO = {
   title,
   description,
-  canonical: 'https://fastfeedback.juliusyam.com',
+  canonical: 'https://fastfeedback-juliusyam.vercel.app',
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: 'https://fastfeedback.juliusyam.com',
+    url: 'https://fastfeedback-juliusyam.vercel.app',
     title,
     description
   },
