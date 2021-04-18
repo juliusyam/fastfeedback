@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon , Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useAuth } from '@/lib/auth';
@@ -8,9 +8,14 @@ function DashboardShell({ children }) {
   const auth = useAuth();
   const user = auth?.user;
 
-  const path = window.location.pathname;
-  const pathTitle = path.charAt(1).toUpperCase() + path.slice(2);
+  const [path, setPath] = useState('');
+  
+  useEffect(() => {
+    setPath(window.location.pathname);
+    return path;
+  }, [])
 
+  const pathTitle = path?.charAt(1).toUpperCase() + path?.slice(2);
   const title = `Fast Feedback - ${pathTitle}`
   const url = `https://photoshopgame.co.uk${path}`
 
