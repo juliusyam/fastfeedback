@@ -17,7 +17,7 @@ function DashboardShell({ children }) {
 
   const pathTitle = path?.charAt(1).toUpperCase() + path?.slice(2);
   const title = `Fast Feedback - ${pathTitle}`
-  const url = `https://photoshopgame.co.uk${path}`
+  const url = `https://fastfeedback.juliusyam.com${path}`
 
   return <>
     <NextSeo 
