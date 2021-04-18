@@ -1,12 +1,29 @@
-import React from 'react'
-import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon, Button, useDisclosure } from '@chakra-ui/react'
+import React from 'react';
+import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon , Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { useAuth } from '@/lib/auth';
+import { NextSeo } from 'next-seo';
 
 function DashboardShell({ children }) {
   const auth = useAuth();
   const user = auth?.user;
 
+  const path = window.location.pathname;
+  const pathTitle = path.charAt(1).toUpperCase() + path.slice(2);
+
+  const title = `Fast Feedback - ${pathTitle}`
+  const url = `https://photoshopgame.co.uk${path}`
+
   return <>
+    <NextSeo 
+      title={title}
+      canonical={url}
+      openGraph={{
+        url,
+        title
+      }}
+    />
+
     <ChakraProvider resetCSS>
       <Box>
         <Stack
@@ -36,15 +53,22 @@ function DashboardShell({ children }) {
                 <path d="M85.326 281.6c0-5.12-3.413-8.533-8.533-8.533-5.12 0-8.533 3.413-8.533 8.533 0 5.12 3.413 8.533 8.533 8.533 5.12 0 8.533-3.413 8.533-8.533"/>
               </>
             </Icon>
-            <Text>Feedback</Text>
-            <Text>Sites</Text>
+            <NextLink href="/feedback">
+              <Link fontWeight="600" _hover={{ color: "gray.400", cursor: "pointer" }}>Feedback</Link>
+            </NextLink>
+            <NextLink href="/dashboard">
+              <Link fontWeight="600" _hover={{ color: "gray.400", cursor: "pointer" }}>Sites</Link>
+            </NextLink>
           </Stack>
           <Stack spacing={2} isInline alignItems="center">
             {auth?.user?.name ? <Text>{user?.name}</Text> : <Text>{user?.email}</Text>}
             {auth?.user ? 
               <Text _hover={{ color: "gray.400", cursor: "pointer" }} onClick={() => auth.signout()}>Log Out</Text> : 
               <Text _hover={{ color: "gray.400", cursor: "pointer" }} onClick={() => auth.signinWithGithub()}>Log In</Text>}
-            <Avatar size="sm" src={user?.photoURL} />
+            
+            <NextLink href="/account">
+              <Avatar cursor="pointer" size="sm" src={user?.photoURL} />
+            </NextLink>
           </Stack>
         </Stack>
         <Flex margin="0 auto" direction="column">{children}</Flex>

@@ -2,6 +2,8 @@ import { ThemeProvider, CSSReset } from '@chakra-ui/react';
 import ProvideAuth from '@/lib/auth';
 import theme from '@/styles/theme';
 import { Global, css} from '@emotion/react';
+import { DefaultSeo } from 'next-seo';
+import SEO from '../next-seo.config';
 
 function GlobalStyle({children}) {
 
@@ -10,7 +12,7 @@ function GlobalStyle({children}) {
     <Global
       styles={css`
         html {
-          min-width: 300px;
+          min-width: 360px;
           scroll-behavior: smooth;
         }
 
@@ -34,6 +36,7 @@ function App({ Component, pageProps }) {
   return (<>
     <ThemeProvider theme={theme}>
       <ProvideAuth>
+        <DefaultSeo {...SEO} />
         <GlobalStyle />
         <Component {...pageProps} />
       </ProvideAuth>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import AddSiteModal from './AddSiteModal';
 
-export default function SiteTableContainer ({ children }) {
+export default function SiteTableContainer ({ children, isPaidAccount }) {
 
   return (
     <Flex
@@ -25,7 +25,7 @@ export default function SiteTableContainer ({ children }) {
             </Box>
           </Box>
           <Box>
-            <AddSiteModal>+ Add Site</AddSiteModal>
+            {isPaidAccount && <AddSiteModal>+ Add Site</AddSiteModal>}
           </Box>
         </Flex>
         <Box>
