@@ -1,8 +1,11 @@
 import React from 'react'
 import { Box, Text, Flex } from '@chakra-ui/react'
 import AddSiteModal from './AddSiteModal';
+import { useAuth } from '../lib/auth';
 
 export default function SiteTableContainer ({ children }) {
+  const auth = useAuth();
+  const stripeRole = auth?.user?.stripeRole;
 
   return (
     <Flex
@@ -25,7 +28,7 @@ export default function SiteTableContainer ({ children }) {
             </Box>
           </Box>
           <Box>
-            <AddSiteModal>+ Add Site</AddSiteModal>
+            {stripeRole && <AddSiteModal>+ Add Site</AddSiteModal>}
           </Box>
         </Flex>
         <Box>
