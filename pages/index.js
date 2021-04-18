@@ -13,7 +13,6 @@ export default function Home() {
             window.location.href = "/dashboard"
           }` }} 
         />
-        <title>Fast Feedack</title>
       </Head>
 
       <Flex as="main" direction="column" justify="center" align="center" max-width="600px">

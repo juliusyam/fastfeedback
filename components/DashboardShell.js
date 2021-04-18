@@ -1,13 +1,29 @@
-import React from 'react'
+import React from 'react';
 import { ChakraProvider, Box, Stack, Text, Avatar, Flex, Icon , Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useAuth } from '@/lib/auth';
+import { NextSeo } from 'next-seo';
 
 function DashboardShell({ children }) {
   const auth = useAuth();
   const user = auth?.user;
 
+  const path = window.location.pathname;
+  const pathTitle = path.charAt(1).toUpperCase() + path.slice(2);
+
+  const title = `Fast Feedback - ${pathTitle}`
+  const url = `https://photoshopgame.co.uk${path}`
+
   return <>
+    <NextSeo 
+      title={title}
+      canonical={url}
+      openGraph={{
+        url,
+        title
+      }}
+    />
+
     <ChakraProvider resetCSS>
       <Box>
         <Stack

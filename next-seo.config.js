@@ -1,4 +1,4 @@
-const title = 'Fast Feedback Site by Julius Yam';
+const title = 'Fast Feedback';
 const description = 'Create a page to receive feedback on your site instantly. Share a unique link with your friends and they can instantly comment!';
 
 const SEO = {
@@ -11,11 +11,6 @@ const SEO = {
     url: 'https://photoshopgame.co.uk',
     title,
     description
-  },
-  twitter: {
-    handle: '@juliusyam',
-    site: '@juliusyam',
-    cardType: 'summary_large_image',
   },
 }
 
