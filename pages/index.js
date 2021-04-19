@@ -5,12 +5,15 @@ import { Text, Flex, Code, Heading, Icon, Button, Stack } from '@chakra-ui/react
 export default function Home() {
   const auth = useAuth();
 
+  const error = auth?.error;
+  console.log(error);
+
   return (
     <div>
       <Head>
         <script dangerouslySetInnerHTML={{ __html: `
           if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
-            window.location.href = "/dashboard"
+            window.location.href = "/sites"
           }` }} 
         />
       </Head>
@@ -27,7 +30,7 @@ export default function Home() {
         </Text> : null}
 
         {auth?.user ? 
-          <Button onClick={() => window.location.href = "/dashboard"}>View Dashboard</Button> : 
+          <Button onClick={() => window.location.href = "/sites"}>View Dashboard</Button> : 
           <Stack>
             <Button 
               leftIcon={<GithubLogo />}
@@ -56,6 +59,7 @@ export default function Home() {
 
               Sign In with Google
             </Button>
+            {auth?.user?.yh && <Text>{auth?.user?.yh}</Text>}
           </Stack>
         }
       </Flex>

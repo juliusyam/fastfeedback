@@ -1,4 +1,4 @@
-import EmptyState from '@/componenets/EmptyState';
+import EmptyFeedbackState from '@/componenets/EmptyFeedbackState';
 import FeedbackTableContainer from '../components/FeedbackTableContainer';
 import SiteTableSkeleton from '../components/SiteTableSkeleton';
 import FeedbackTable from '../components/FeedbackTable';
@@ -28,7 +28,7 @@ export default function Feedback() {
   return (
     <DashboardShell>
       <FeedbackTableContainer>
-        {data.feedback ? <FeedbackTable feedback={data?.feedback} /> : <EmptyState />}
+        {data.feedback ? <FeedbackTable feedback={data?.feedback} /> : <EmptyFeedbackState />}
       </FeedbackTableContainer>
     </DashboardShell>
   )

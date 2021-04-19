@@ -19,8 +19,12 @@ export default function SiteTable ({ sites }) {
       {sites.map((site, index) => (
         <Box as="tr" key={index}>
           <Td>{site.name}</Td>
-          <Td><Text maxW="200px" isTruncated>{site.url}</Text></Td>
-          <Td><NextLink href="/p/[siteId]" as={`/p/${site.id}`} passHref>
+          <Td>
+            <NextLink href="/sites/[siteId]" as={`/sites/${site.id}`} passHref>
+              <Link><Text maxW="200px" isTruncated>{site.url}</Text></Link>
+            </NextLink>
+          </Td>
+          <Td><NextLink href="/feedback/[siteId]" as={`/feedback/${site.id}`} passHref>
             <Link color="#69aaac" fontWeight="bold">View Feedback</Link>
           </NextLink></Td>
           <Td>{jessicaDay(site.createdAt).format('ddd, DD MMM YYYY on HH:mm')}</Td>

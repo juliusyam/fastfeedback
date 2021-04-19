@@ -61,7 +61,7 @@ function DashboardShell({ children }) {
             <NextLink href="/feedback">
               <Link fontWeight="600" _hover={{ color: "gray.400", cursor: "pointer" }}>Feedback</Link>
             </NextLink>
-            <NextLink href="/dashboard">
+            <NextLink href="/sites">
               <Link fontWeight="600" _hover={{ color: "gray.400", cursor: "pointer" }}>Sites</Link>
             </NextLink>
           </Stack>
@@ -69,7 +69,9 @@ function DashboardShell({ children }) {
             {auth?.user?.name ? <Text>{user?.name}</Text> : <Text>{user?.email}</Text>}
             {auth?.user ? 
               <Text _hover={{ color: "gray.400", cursor: "pointer" }} onClick={() => auth.signout()}>Log Out</Text> : 
-              <Text _hover={{ color: "gray.400", cursor: "pointer" }} onClick={() => auth.signinWithGithub()}>Log In</Text>}
+              <NextLink href="/">
+                <Text as="a" _hover={{ color: "gray.400", cursor: "pointer" }}>Log In</Text>
+              </NextLink>}
             
             <NextLink href="/account">
               <Avatar cursor="pointer" size="sm" src={user?.photoURL} />
