@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 export default function Feedback ({author, text, createdAt}) {
 
-  return <Box borderRadius={4} maxW="700px" w="full" py={3}>
+  return <Box borderRadius={4} w="full" py={3}>
     <Heading size="sm" as="h3" mb={0} color="gray.700">
       {author ? author : 'Anonymous'}
     </Heading>
