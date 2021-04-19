@@ -3,7 +3,7 @@ import { Box, Text, Flex, Button, Spinner } from '@chakra-ui/react';
 import { createCheckoutSession } from '@/lib/database';
 import { useAuth } from '../lib/auth';
 
-export default function EmptyState() {
+export default function UpgradeEmptyState() {
   const auth = useAuth();
   const user = auth?.user;
 
