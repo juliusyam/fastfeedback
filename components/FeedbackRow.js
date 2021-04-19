@@ -25,7 +25,7 @@ export default function FeedbackRow ({ eachFeedback }) {
     <Box as="tr">
       <Td><Text maxW="200px" isTruncated>{eachFeedback.author ? eachFeedback.author : 'Anonymous'}</Text></Td>
       <Td><Text maxW="500px" isTruncated>{eachFeedback.text}</Text></Td>
-      <Td><NextLink href="/p/[siteId]" as={`/p/${eachFeedback.siteId}`} passHref>
+      <Td><NextLink href="/sites/[siteId]" as={`/sites/${eachFeedback.siteId}`} passHref>
         <Link color="#69aaac" fontWeight="bold">View</Link>
       </NextLink></Td>
       <Td>

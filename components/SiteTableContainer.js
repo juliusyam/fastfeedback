@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, Flex } from '@chakra-ui/react'
+import { Box, Text, Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
 import AddSiteModal from './AddSiteModal';
 
 export default function SiteTableContainer ({ children, isPaidAccount }) {
@@ -16,7 +16,11 @@ export default function SiteTableContainer ({ children, isPaidAccount }) {
         <Flex justify="space-between" alignItems="center">
           <Box>
             <Box>
-              <Text>Sites /</Text>
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <BreadcrumbLink>Sites</BreadcrumbLink>
+                </BreadcrumbItem>
+              </Breadcrumb>
             </Box>
             <Box>
               <Text fontSize="35px" fontWeight="bold">

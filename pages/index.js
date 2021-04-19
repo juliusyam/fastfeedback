@@ -13,7 +13,7 @@ export default function Home() {
       <Head>
         <script dangerouslySetInnerHTML={{ __html: `
           if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
-            window.location.href = "/dashboard"
+            window.location.href = "/sites"
           }` }} 
         />
       </Head>
@@ -30,7 +30,7 @@ export default function Home() {
         </Text> : null}
 
         {auth?.user ? 
-          <Button onClick={() => window.location.href = "/dashboard"}>View Dashboard</Button> : 
+          <Button onClick={() => window.location.href = "/sites"}>View Dashboard</Button> : 
           <Stack>
             <Button 
               leftIcon={<GithubLogo />}

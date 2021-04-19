@@ -7,6 +7,8 @@ import { useAuth } from '@/lib/auth';
 import dayjs from 'dayjs';
 import { createFeedback, getAuthorInfo, getSiteInfo } from '@/lib/database';
 import NextLink from 'next/link';
+import DashboardShell from '@/componenets/DashboardShell';
+
 
 export async function getStaticProps(context) {
   const siteId = context.params.siteId;
@@ -77,31 +79,33 @@ export default function SiteFeedback({ initialFeedback, siteOnPage, authorOnPage
   };
 
   return (
-    <Box>
-      <Stack my={10} mx={5} alignItems="center">
-        <Stack width="full" maxW="70em">
-          {theSite && <SiteInfo theSite={theSite} theAuthor={theAuthor} />}
-          {/* {theSite && <Text as="h1">{theSite.name}</Text>} */}
+    <DashboardShell>
+      <Box>
+        <Stack my={10} mx={5} alignItems="center">
+          <Stack width="full" maxW="70em">
+            {theSite && <SiteInfo theSite={theSite} theAuthor={theAuthor} />}
+            {/* {theSite && <Text as="h1">{theSite.name}</Text>} */}
 
-          <Box as="form" onSubmit={onSubmit}>
-            <FormControl my={8} >
-              <FormLabel>Comment</FormLabel>
-              <Input ref={inputContent} type="comment" name="comment" />
-              <Button type="submit" background="#69aaac" color="#fdfdfd" my={3}
-                _hover={{ bg: "gray.900" }}
-                isDisabled={router.isFallback}
-              >
-                Add Comment
-              </Button>
-            </FormControl>
-          </Box>
-          
-          {allFeedback && allFeedback.map((feedback) => (
-            <EachFeedback key={feedback.id} feedback={feedback} />
-          ))}
-        </Stack>
-      </Stack>  
-    </Box>
+            <Box as="form" onSubmit={onSubmit}>
+              <FormControl my={8} >
+                <FormLabel>Comment</FormLabel>
+                <Input ref={inputContent} type="comment" name="comment" />
+                <Button type="submit" background="#69aaac" color="#fdfdfd" my={3}
+                  _hover={{ bg: "gray.900" }}
+                  isDisabled={router.isFallback}
+                >
+                  Add Comment
+                </Button>
+              </FormControl>
+            </Box>
+            
+            {allFeedback && allFeedback.map((feedback) => (
+              <EachFeedback key={feedback.id} feedback={feedback} />
+            ))}
+          </Stack>
+        </Stack>  
+      </Box>
+    </DashboardShell>
   )
 }
 

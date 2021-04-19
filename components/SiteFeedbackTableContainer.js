@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Text, Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
-export default function FeedbackTableContainer ({ children }) {
+export default function SiteFeedbackTableContainer ({ children, siteName }) {
 
   return (
     <Flex
@@ -19,11 +19,14 @@ export default function FeedbackTableContainer ({ children }) {
                 <BreadcrumbItem>
                   <BreadcrumbLink href="/feedback">Feedback</BreadcrumbLink>
                 </BreadcrumbItem>
+                <BreadcrumbItem>
+                  <BreadcrumbLink>{siteName || '-'}</BreadcrumbLink>
+                </BreadcrumbItem>
               </Breadcrumb>
             </Box>
             <Box>
               <Text fontSize="35px" fontWeight="bold">
-                Feedback
+                {siteName || '-'}
               </Text>
             </Box>
           </Box>

@@ -61,7 +61,7 @@ function DashboardShell({ children }) {
             <NextLink href="/feedback">
               <Link fontWeight="600" _hover={{ color: "gray.400", cursor: "pointer" }}>Feedback</Link>
             </NextLink>
-            <NextLink href="/dashboard">
+            <NextLink href="/sites">
               <Link fontWeight="600" _hover={{ color: "gray.400", cursor: "pointer" }}>Sites</Link>
             </NextLink>
           </Stack>
