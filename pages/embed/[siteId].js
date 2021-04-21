@@ -1,26 +1,18 @@
-import { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { Box, FormControl, FormLabel, Input, Button, useToast, Text, Stack, Flex, Avatar } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Box, Stack, Link, Text } from '@chakra-ui/react';
 import { getAllFeedback, getAllSites } from '@/lib/database-admin';
 import Feedback from '../../components/Feedback';
-import { useAuth } from '@/lib/auth';
-import dayjs from 'dayjs';
-import { createFeedback, getAuthorInfo, getSiteInfo } from '@/lib/database';
-
+import NextLink from 'next/link';
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 export async function getStaticProps(context) {
   const siteId = context.params.siteId;
   const { feedback } = await getAllFeedback(siteId);
-  const sites = await getSiteInfo(siteId);
-  
-  const authorId = sites.authorId;
-  const author = await getAuthorInfo(authorId);
 
   return {
     props: {
+      siteId: siteId,
       initialFeedback: feedback,
-      siteOnPage: sites,
-      authorOnPage: author,
     },
     revalidate: 1
   }
@@ -40,57 +32,21 @@ export async function getStaticPaths() {
   };
 }
 
-export default function SiteFeedback({ initialFeedback, siteOnPage, authorOnPage }) {
-  const auth = useAuth();
-  const user = auth?.user;
+export default function SiteFeedback({ siteId, initialFeedback }) {
 
-  const router = useRouter();
-  const inputContent = useRef(null);
-  const toast = useToast();
-
-  const [allFeedback, setAllFeedback] = useState(initialFeedback);
-
-  const onSubmit = () => {
-    const newFeedback = {
-      author: user.name,
-      authorId: user.uid,
-      siteId: router.query.siteId,
-      text: inputContent.current.value,
-      createdAt: dayjs().format(),
-      provider: user.provider,
-      status: 'pending'
-    }
-
-    inputContent.current.value = '';
-    setAllFeedback([newFeedback, ...allFeedback]);
-    createFeedback(newFeedback);
-
-    toast({
-      title: 'Success!',
-      description: "You've posted your feedback",
-      status: 'success',
-      duration: 5000,
-      isClosable: true
-    });
-  };
+  const [allFeedback] = useState(initialFeedback);
 
   return (
       <Box>
         <Stack my={10} mx={5} alignItems="flex-start">
           <Stack>
-            <Box as="form" onSubmit={onSubmit}>
-              <FormControl my={8} >
-                <FormLabel>Comment</FormLabel>
-                <Input ref={inputContent} type="comment" name="comment" />
-                <Button type="submit" background="#69aaac" color="#fdfdfd" my={3}
-                  _hover={{ bg: "gray.900" }}
-                  isDisabled={router.isFallback}
-                >
-                  Add Comment
-                </Button>
-              </FormControl>
-            </Box>
-            
+            <NextLink href={`/sites/${siteId}`}>
+              <Link fontWeight="700">Leave a comment<ArrowForwardIcon ml={1} /></Link>
+            </NextLink>
+
+            {allFeedback?.length === 0 && 
+              <Text>There are no comments for this site yet. Be the first person to leave one!</Text>}
+
             {allFeedback && allFeedback.map((feedback) => (
               <EachFeedback key={feedback.id} feedback={feedback} />
             ))}

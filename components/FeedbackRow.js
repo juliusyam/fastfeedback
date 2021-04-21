@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Link, Text, Switch } from "@chakra-ui/react";
+import { Box, Link, Text, Switch, Code } from "@chakra-ui/react";
 import RemoveButton from './RemoveButton';
 import { Td } from './Table';
 import NextLink from 'next/link';
@@ -26,7 +26,7 @@ export default function FeedbackRow ({ eachFeedback }) {
       <Td><Text maxW="200px" isTruncated>{eachFeedback.author ? eachFeedback.author : 'Anonymous'}</Text></Td>
       <Td><Text maxW="500px" isTruncated>{eachFeedback.text}</Text></Td>
       <Td><NextLink href="/sites/[siteId]" as={`/sites/${eachFeedback.siteId}`} passHref>
-        <Link color="#69aaac" fontWeight="bold">View</Link>
+        <Link fontWeight="600"><Code maxW="15em">{eachFeedback.route ? eachFeedback.route : '/'}</Code></Link>
       </NextLink></Td>
       <Td>
         <Switch 

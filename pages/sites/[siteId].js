@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Box, FormControl, FormLabel, Input, Button, useToast, Text, Stack, Flex, Avatar } from '@chakra-ui/react';
+import { Box, FormControl, Textarea, Button, useToast, Text, Stack, Flex, Avatar, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { getAllFeedback, getAllSites } from '@/lib/database-admin';
 import Feedback from '../../components/Feedback';
 import { useAuth } from '@/lib/auth';
@@ -20,6 +20,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      siteId: siteId,
       initialFeedback: feedback,
       siteOnPage: sites,
       authorOnPage: author,
@@ -42,7 +43,7 @@ export async function getStaticPaths() {
   };
 }
 
-export default function SiteFeedback({ initialFeedback, siteOnPage, authorOnPage }) {
+export default function SiteFeedback({ siteId, initialFeedback, siteOnPage, authorOnPage }) {
   const auth = useAuth();
   const user = auth?.user;
 
@@ -54,8 +55,11 @@ export default function SiteFeedback({ initialFeedback, siteOnPage, authorOnPage
   const [theSite] = useState(siteOnPage);
   const [theAuthor] = useState(authorOnPage);
 
+  console.log(router);
+
   const onSubmit = () => {
     const newFeedback = {
+      route: theSite.name || '/',
       author: user.name,
       authorId: user.uid,
       siteId: router.query.siteId,
@@ -83,18 +87,32 @@ export default function SiteFeedback({ initialFeedback, siteOnPage, authorOnPage
       <Box>
         <Stack my={10} mx={5} alignItems="center">
           <Stack width="full" maxW="70em">
+            <Box>
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/sites/${siteId}`}>{theSite.name}</BreadcrumbLink>
+                </BreadcrumbItem>
+              </Breadcrumb>
+            </Box>
+
             {theSite && <SiteInfo theSite={theSite} theAuthor={theAuthor} />}
-            {/* {theSite && <Text as="h1">{theSite.name}</Text>} */}
 
             <Box as="form" onSubmit={onSubmit}>
               <FormControl my={8} >
-                <FormLabel>Comment</FormLabel>
-                <Input ref={inputContent} type="comment" name="comment" />
-                <Button type="submit" background="#69aaac" color="#fdfdfd" my={3}
-                  _hover={{ bg: "gray.900" }}
+                <Textarea ref={inputContent} 
+                  background="gray.200"
+                  height="8em"
+                  placeholder="Leave a comment..."
+                  type="comment" 
+                  name="comment" />
+                <Button type="submit" background="gray.900" color="#fdfdfd" my={3}
+                  _hover={{ bg: "#69aaac" }}
                   isDisabled={router.isFallback}
                 >
-                  Add Comment
+                  Leave a Feedback
                 </Button>
               </FormControl>
             </Box>
