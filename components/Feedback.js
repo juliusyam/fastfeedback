@@ -8,6 +8,7 @@ export default function Feedback ({author, text, createdAt}) {
     <Heading size="sm" as="h3" mb={0} color="gray.700">
       {author ? author : 'Anonymous'}
     </Heading>
+
     <Text color="gray.500" mb={1} fontSize="xs">
       {dayjs(createdAt).format('ddd, DD MMM YYYY on HH:mm')}
     </Text>
